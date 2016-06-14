@@ -27,11 +27,15 @@ false
 ```
 (defn square [x] (* x x))
 
+(defn sumofsquares [x y]
+  (+ (square x) (square y))
+)
+
 (defn maxofthree [x y z]
   (cond
-    (and (< x y) (< x z)) (+ (square y) (square z))
-    (and (< y x) (< y z)) (+ (square x) (square z))
-    (and (< z y) (< z x)) (+ (square y) (square x))
+    (and (< x y) (< x z)) (sumofsquares z y)
+    (and (< y x) (< y z)) (sumofsquares x z)
+    (and (< z y) (< z x)) (sumofsquares x y)
     )
 )
 ```
