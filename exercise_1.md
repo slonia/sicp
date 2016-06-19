@@ -226,5 +226,27 @@ Process is *iterative* because we need only a and b to capture the whole state.
 >> (A 3 3)
 => 65536
 
+
+(defn f [n] (A 0 n))
+(defn g [n] (A 1 n))
+(defn h [n] (A 2 n))
+(defn k [n] (* 5 n n))
+
+>> (map f (range 1 10))
+=> (2 4 6 8 10 12 14 16 18)
+>> (map g (range 1 10))
+=> (2 4 8 16 32 64 128 256 512)
+>> (map h (range 1 5))
+=> (2 4 16 65536)
+
 ```
+BTW: Seems this is not real Ackermann's function.
+
+So this functions are:
+* 2*n
+* 2^n
+* ?
+* 5*(n^2)
+
+
 
