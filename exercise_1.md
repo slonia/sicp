@@ -248,5 +248,36 @@ So this functions are:
 * ?
 * 5*(n^2)
 
+** Coins **
+(defn count-change [amount]
+  (cc amount 5)
+)
 
+(defn cc [amount kinds]
+  (cond
+    (= amount 0) 1
+    (or (< amount 0) (= kinds 0)) 0
+    :else (+ (cc amount (- kinds 1)) 
+             (cc (- amount (first-denomination kinds)) kinds))
+  ) 
+)
+
+(defn first-denomination [kinds]
+  (cond
+    (= kinds 1) 1
+    (= kinds 2) 5
+    (= kinds 3) 10
+    (= kinds 4) 25
+    (= kinds 5) 50
+  )
+)
+
+
+** 1.11 **
+(defn f [n]
+  (cond 
+    (< n 3) n
+    :else (+ (f (- n 1)) (* 2 (f (- n 2))) (* 3 (f (- n 3))))
+  )
+)
 
