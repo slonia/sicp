@@ -243,12 +243,14 @@ Process is *iterative* because we need only a and b to capture the whole state.
 BTW: Seems this is not real Ackermann's function.
 
 So this functions are:
+
 * 2*n
 * 2^n
-* ?
+* 2^2^2^... n times
 * 5*(n^2)
 
 ** Coins **
+```
 (defn count-change [amount]
   (cc amount 5)
 )
@@ -272,8 +274,10 @@ So this functions are:
   )
 )
 
+```
 
 **1.11**
+
 Recursive procedure:
 ```
 (defn f-rec [n]
@@ -309,5 +313,28 @@ Iterative procedure:
 )
 ```
 
+**1.13**
+
+Lets explore fib(n-2) + fib(n-1)
+```
+fib(n-2) = (ph^(n-2) - f^(n-2))/sqrt(5)
+fib(n-1) = (ph^(n-1) - f^(n-1))/sqrt(5)
+fib(n-2) + fib(n-1) = (ph^(n-2) - f^(n-2) + ph^(n-1) - f^(n-1))/sqrt(5) =
+= ((ph+1)*ph^(n-2) - (f+1)*f*(n-2))/sqrt(5) = ...
+```
+In the chapter we see that
+```
+ph^2 = ph+1
+f^2 = f+1
+```
+so perfroming this substitution
+```
+... = (ph^2*ph(n-2) - f^2*f(n-2))/sqrt(5) =
+= (ph^n - f^n)/sqrt(5) = fib(n)
+``` 
+So we prooved that
+```
+fib(n) = fib(n-2) + fib(n-1)
+```
 
 
