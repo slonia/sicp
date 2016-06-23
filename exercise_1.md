@@ -274,10 +274,41 @@ So this functions are:
 
 
 ** 1.11 **
-(defn f [n]
+
+Recursive procedure:
+```
+(defn f-rec [n]
   (cond 
     (< n 3) n
-    :else (+ (f (- n 1)) (* 2 (f (- n 2))) (* 3 (f (- n 3))))
+    :else (+ (f-rec (- n 1)) (* 2 (f-rec (- n 2))) (* 3 (f-rec (- n 3))))
   )
 )
+```
+
+Iterative procedure:
+```
+(defn f-iter [a b c count]
+  (if (= count 0)
+    a
+    (f-iter b c (+ c (* 2 b) (* 3 a)) (dec count))
+  )
+)
+
+(defn f-it [n]
+  (f-iter 0 1 2 n)
+)
+
+```
+
+** 1.12 **
+```
+(defn pasc [x y]
+  (if (or (< y 2) (>= y x))
+    1
+    (+ (pasc (dec x) (dec y)) (pasc (dec x) y))
+    )
+)
+```
+
+
 
