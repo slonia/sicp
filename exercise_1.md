@@ -1,7 +1,21 @@
 Exercise 1
 ================
+* [1.1](#11)
+* [1.2](#12)
+* [1.3](#13)
+* [1.4](#14)
+* [1.5](#15)
+* [1.6](#16)
+* [1.7](#17)
+* [1.8](#18)
+* [1.9](#19)
+* [1.10](#110)
+* [1.11](#111)
+* [1.12](#112)
+* [1.13](#113)
 
-**1.1**
+##1.1
+
 ```
 10
 12
@@ -18,12 +32,12 @@ false
 16
 ```
 
-**1.2**
+##1.2
 ```
 (/ (+ 5 (+ 4 (- 2 (- 3 (+ 6 (/ 4 5))))))  (* 3 (- 6 2) (- 2 7))) = -37/150
 ```
 
-**1.3**
+##1.3
 ```
 (defn square [x] (* x x))
 
@@ -40,15 +54,15 @@ false
 )
 ```
 
-**1.4**
+##1.4
 
 Functions and predefined constructions in LISP can return other functions and operators. So here IF returns operaton (- or +) and then this operator is applied to function arguments
 
-**1.5**
+##1.5
 
 When we need to evaluate argument the program hangs. So in applicative order we will have an error, in normal order the expression evaluates as 0.
 
-**1.6**
+##1.6
 ```
 (defn abs [x]
   (if (< x 0) (- x) x)
@@ -98,7 +112,7 @@ When we need to evaluate argument the program hangs. So in applicative order we 
 [Scheme version](https://repl.it/C3bk/0)
 
 
-**1.7**
+##1.7
 Bad results:
 ```
 (sqrt 0.0004)
@@ -135,7 +149,7 @@ Bad results:
 
 ```
 
-**1.8**
+##1.8
 
 ```
 (defn abs [x]
@@ -168,7 +182,7 @@ Bad results:
 
 ```
 
-**1.9**
+##1.9
 
 ```
 (define (+ a b)
@@ -207,10 +221,10 @@ Process is *recursive*, because we should keep track of a, b and num of inc.
 
 Process is *iterative* because we need only a and b to capture the whole state.
 
-**1.10**
+##1.10
 ```
 (defn A [x y]
-  (cond 
+  (cond
     (= y 0) 0
     (= x 0) (* 2 y)
     (= y 1) 2
@@ -259,9 +273,9 @@ So this functions are:
   (cond
     (= amount 0) 1
     (or (< amount 0) (= kinds 0)) 0
-    :else (+ (cc amount (- kinds 1)) 
+    :else (+ (cc amount (- kinds 1))
              (cc (- amount (first-denomination kinds)) kinds))
-  ) 
+  )
 )
 
 (defn first-denomination [kinds]
@@ -276,12 +290,12 @@ So this functions are:
 
 ```
 
-**1.11**
+##1.11
 
 Recursive procedure:
 ```
 (defn f-rec [n]
-  (cond 
+  (cond
     (< n 3) n
     :else (+ (f-rec (- n 1)) (* 2 (f-rec (- n 2))) (* 3 (f-rec (- n 3))))
   )
@@ -303,7 +317,7 @@ Iterative procedure:
 
 ```
 
-**1.12**
+##1.12
 ```
 (defn pasc [x y]
   (if (or (< y 2) (>= y x))
@@ -313,7 +327,7 @@ Iterative procedure:
 )
 ```
 
-**1.13**
+##Eleven
 
 Lets explore fib(n-2) + fib(n-1)
 ```
@@ -331,7 +345,7 @@ so perfroming this substitution
 ```
 ... = (ph^2*ph(n-2) - f^2*f(n-2))/sqrt(5) =
 = (ph^n - f^n)/sqrt(5) = fib(n)
-``` 
+```
 So we prooved that
 ```
 fib(n) = fib(n-2) + fib(n-1)
