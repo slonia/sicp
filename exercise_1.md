@@ -273,8 +273,7 @@ So this functions are:
 )
 
 
-** 1.11 **
-
+**1.11**
 Recursive procedure:
 ```
 (defn f-rec [n]
@@ -300,7 +299,7 @@ Iterative procedure:
 
 ```
 
-** 1.12 **
+**1.12**
 ```
 (defn pasc [x y]
   (if (or (< y 2) (>= y x))
