@@ -249,7 +249,7 @@ So this functions are:
 * 2^2^2^... n times
 * 5*(n^2)
 
-** Coins **
+**Coins**
 ```
 (defn count-change [amount]
   (cc amount 5)
