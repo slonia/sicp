@@ -13,6 +13,8 @@ Exercise 1
 * [1.11](#111)
 * [1.12](#112)
 * [1.13](#113)
+* [1.14](#114)
+* [1.15](#115)
 
 ##1.1
 
@@ -263,33 +265,6 @@ So this functions are:
 * 2^2^2^... n times
 * 5*(n^2)
 
-**Coins**
-```
-(defn count-change [amount]
-  (cc amount 5)
-)
-
-(defn cc [amount kinds]
-  (cond
-    (= amount 0) 1
-    (or (< amount 0) (= kinds 0)) 0
-    :else (+ (cc amount (- kinds 1))
-             (cc (- amount (first-denomination kinds)) kinds))
-  )
-)
-
-(defn first-denomination [kinds]
-  (cond
-    (= kinds 1) 1
-    (= kinds 2) 5
-    (= kinds 3) 10
-    (= kinds 4) 25
-    (= kinds 5) 50
-  )
-)
-
-```
-
 ##1.11
 
 Recursive procedure:
@@ -351,4 +326,74 @@ So we prooved that
 fib(n) = fib(n-2) + fib(n-1)
 ```
 
+##1.14
 
+```
+(defn first-denomination [kinds]
+  (cond
+    (= kinds 1) 1
+    (= kinds 2) 5
+    (= kinds 3) 10
+    (= kinds 4) 25
+    (= kinds 5) 50
+  )
+)
+
+(defn cc [amount kinds]
+  (cond
+    (= amount 0) 1
+    (or (< amount 0) (= kinds 0)) 0
+    :else (+ (cc amount (- kinds 1))
+             (cc (- amount (first-denomination kinds)) kinds))
+  )
+)
+
+(defn count-change [amount]
+  (cc amount 5)
+)
+
+```
+
+![Tree](images/tree.png)
+
+We have 5 steps until we get (cc (- amount 4) 1) and after that we have (- amount 4) steps. Maximum width of the is 5 so order of growth for number of steps is *theta(amount^5)*. Height of the tree is proportional for amount, so the order of growth for memory is *theta(amount)*.
+
+##1.15
+```
+(defn abs [x]
+  (if (< x 0) (- x) x)
+)
+(defn cube [x]
+ (* x x x)
+)
+(defn p [x]
+  (- (* 3 x) (* 4 (cube x))))
+)
+(defn sine [angle]
+  (if (not (> (abs angle) 0.1))
+  angle
+  (p (sine (/ angle 3.0))))
+)
+
+```
+a) *p* will be called 5 times:
+* 12.15
+* 4.05
+* 1.35
+* 0.45
+* 0.15
+* 0.05
+
+We can see that after 5th iteration value is < 0.1
+
+b) Number of iterations is log(3, 10*a), which is *theta(log(a))*:
+n - number of iterations, so
+
+```
+a/(3^n) < 0.1
+a < 0.1 * (3^n)
+10a < 3^n
+log(3, 10*a) < n
+```
+
+On each step we should store constant value of variables, so the order of memory growth is the same.
