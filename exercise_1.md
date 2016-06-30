@@ -386,7 +386,7 @@ a) *p* will be called 5 times:
 
 We can see that after 5th iteration value is < 0.1
 
-b) Number of iterations is log(3, 10*a), which is *theta(log(a))*:
+b) Number of iterations is log(3, 10 * a), which is *theta(log(a))*:
 n - number of iterations, so
 
 ```
