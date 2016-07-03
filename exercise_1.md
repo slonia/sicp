@@ -15,6 +15,9 @@ Exercise 1
 * [1.13](#113)
 * [1.14](#114)
 * [1.15](#115)
+* [1.16](#116)
+* [1.17](#117)
+* [1.18](#118)
 
 ##1.1
 
@@ -454,6 +457,34 @@ Iterative procedure
     :else (+ a (fast-mult a (dec b)))
   )
 )
+```
+
+##1.18
+
+```
+(defn even? [n]
+(= (rem n 2) 0))
+
+(defn dbl [x]
+  (+ x x)
+)
+
+(defn halve [x]
+  (/ x 2)
+)
+
+(defn fast-mult-iter [r a b]
+  (cond
+    (= b 1) r
+    (even? b) (fast-mult-iter (+ r (dbl a)) a (halve b))
+    :else (fast-mult-iter (+ r a) a (dec b))
+  )
+)
+
+(defn fast-mult2 [a b]
+  (fast-mult-iter 0 a b)
+)
+
 ```
 
 
