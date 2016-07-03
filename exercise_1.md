@@ -397,3 +397,63 @@ log(3, 10*a) < n
 ```
 
 On each step we should store constant value of variables, so the order of memory growth is the same.
+
+##1.16
+
+Recursive procedure
+
+```
+(defn even? [n]
+(= (rem n 2) 0))
+
+(defn square [x] (* x x))
+
+(defn fast-expt [b n]
+  (cond
+    (= n 0) 1
+    (even? n) (square (fast-expt b (/ n 2)))
+    :else (* b (fast-expt b (dec n)))
+  )
+)
+```
+
+Iterative procedure
+```
+(defn fast-expt-iter [a b n]
+  (cond
+    (= n 1) a
+    (even? n) (fast-expt-iter (* a (square b)) b (/ n 2))
+    :else (fast-expt-iter (* a b) b (dec n))
+  )
+)
+
+(defn fast-expt2 [b n]
+  (fast-expt-iter 1 b n)
+)
+```
+
+##1.17
+```
+(defn even? [n]
+(= (rem n 2) 0))
+
+(defn dbl [x]
+  (+ x x)
+)
+
+(defn halve [x]
+  (/ x 2)
+)
+
+(defn fast-mult [a b]
+  (cond
+    (or (= a 0) (= b 0)) 0
+    (= a 1) b
+    (= b 1) a
+    (even? b) (fast-mult (dbl a) (halve b))
+    :else (+ a (fast-mult a (dec b)))
+  )
+)
+```
+
+
