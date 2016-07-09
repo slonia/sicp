@@ -18,6 +18,7 @@ Exercise 1
 * [1.16](#116)
 * [1.17](#117)
 * [1.18](#118)
+* [1.19](#119)
 
 ##1.1
 
@@ -475,6 +476,7 @@ Iterative procedure
 
 (defn fast-mult-iter [r a b]
   (cond
+
     (= b 1) r
     (even? b) (fast-mult-iter (+ r (dbl a)) a (halve b))
     :else (fast-mult-iter (+ r a) a (dec b))
@@ -487,4 +489,72 @@ Iterative procedure
 
 ```
 
+##1.19
 
+Lets count a<sub>2</sub> and b<sub>2</sub> in terms of *p* and *q*:
+<pre>
+a<sub>1</sub> = b<sub>0</sub>q + a<sub>0</sub>(q+p)
+b<sub>1</sub> = b<sub>0</sub>p + a<sub>0</sub>q
+
+a<sub>2</sub> = b<sub>1</sub>q + a<sub>1</sub>(q+p)
+b<sub>2</sub> = b<sub>1</sub>p + a<sub>1</sub>q
+</pre>
+
+Perfom substitution of the first equations into the second:
+
+<pre>
+a<sub>2</sub> = q<sup>2</sup>(2a<sub>0</sub> + b<sub>0</sub>) + p<sup>2</sup>a<sub>0</sub> + pq(2a<sub>0</sub> + 2b<sub>0</sub>)
+b<sub>2</sub> = q<sup>2</sup>(a<sub>0</sub> + b<sub>0</sub>) + p<sup>2</sup>b<sub>0</sub> + 2a<sub>0</sub>pq
+</pre>
+
+Lets use that a<sub>0</sub> = 1 and b<sub>0</sub> = 0:
+<pre>
+a<sub>2</sub> = 2q<sup>2</sup> + p<sup>2</sup> + 2pq
+b<sub>2</sub> = q<sup>2</sup> + 2pq
+</pre>
+
+Now lets count a<sub>2</sub> and b<sub>2</sub> in terms of *p`* and *q`*:
+<pre>
+a<sub>2</sub> = b<sub>0</sub>q` + a<sub>0</sub>(q`+p`)
+b<sub>2</sub> = b<sub>0</sub>p` + a<sub>0</sub>q`
+
+a<sub>2</sub> = q`+p`
+b<sub>2</sub> = q`
+</pre>
+
+From first and second systems we get
+<pre>
+q` = q<sup>2</sup> + 2pq
+p` = q<sup>2</sup> + p<sup>2</sup>
+</pre>
+
+Now we can use this in fib-iter function:
+```
+(defn even? [n]
+  (= (rem n 2) 0))
+
+
+(defn fib-iter [a b p q count]
+  (cond
+    (= count 0) b
+    (even? count)
+      (fib-iter a b
+        (+ (* q q) (* p p))
+        (+ (* q q) (* 2 p q))
+        (/ count 2)
+        )
+    :else (fib-iter
+      (+ (* b q) (* a q) (* a p))
+      (+ (* b p) (* a q))
+      p
+      q
+      (dec count)
+    )
+  )
+)
+
+
+(defn fib [n]
+  (fib-iter 1 0 0 1 n)
+)
+```
