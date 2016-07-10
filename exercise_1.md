@@ -19,6 +19,7 @@ Exercise 1
 * [1.17](#117)
 * [1.18](#118)
 * [1.19](#119)
+* [1.20](#120)
 
 ##1.1
 
@@ -558,3 +559,70 @@ Now we can use this in fib-iter function:
   (fib-iter 1 0 0 1 n)
 )
 ```
+
+##1.20
+```
+(defn gcd [a b]
+  (if (= b 0)
+    a
+    (gcd b (rem a b))
+  )
+)
+```
+Applicative order:
+```
+(gcd 206 40)
+(gcd 40 6)      # rem
+(gcd 6 4)       # rem
+(gcd 4 2)       # rem
+(gcd 2 0)       # rem
+(2)
+```
+*rem* is called 4 times
+
+Normal order:
+
+1 iteration:
+```
+(if (= 40 0)
+  206
+  (gcd 40 (rem 206 40))
+)
+```
+0 times / 0 total
+
+2 iteration:
+```
+(if (= (rem 206 40) 0)
+  40
+  (gcd (rem 206 40) (rem 40 (rem 206 40)))
+)
+```
+1 time / 1 total
+
+3 iteration:
+```
+(if (= (rem 40 (rem 206 40)) 0)
+  (rem 206 40)
+  (gcd (rem 40 (rem 206 40)) (rem (rem 206 40) (rem 40 (rem 206 40))))
+)
+```
+2 times / 3 total
+
+4 iteration
+```
+( if (= (rem (rem 206 40) (rem 40 (rem 206 40))) 0)
+  (rem 40 (rem 206 40))
+  (gcd (rem (rem 206 40) (rem 40 (rem 206 40))) (rem (rem 40 (rem 206 40)) (rem (rem 206 40) (rem 40 (rem 206 40)))))
+)
+```
+4 times / 7 total
+5 iteration
+
+```
+( if (=  (rem (rem 40 (rem 206 40)) (rem (rem 206 40) (rem 40 (rem 206 40)))) 0)
+  (rem (rem 206 40) (rem 40 (rem 206 40)))
+  ...
+)
+```
+11 times / 18 total
