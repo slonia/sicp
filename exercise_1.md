@@ -20,6 +20,8 @@ Exercise 1
 * [1.18](#118)
 * [1.19](#119)
 * [1.20](#120)
+* [1.21](#121)
+* [1.22](#122)
 
 ##1.1
 
@@ -626,3 +628,37 @@ Normal order:
 )
 ```
 11 times / 18 total
+
+##1.21
+```
+(defn divides? [a b]
+  (= (rem b a) 0)
+)
+
+(defn find-divisor [n test-divisor]
+  (cond
+    (> (* test-divisor test-divisor) n) n
+    (divides? test-divisor n) test-divisor
+    :else (find-divisor n (inc test-divisor))
+  )
+)
+
+(defn smallest-divisor [n]
+  (find-divisor n 2)
+)
+```
+
+```
+>> (smallest-divisor 199)
+=> 199
+```
+
+```
+>> (smallest-divisor 1999)
+=> 1999
+```
+
+```
+>> (smallest-divisor 19999)
+=> 7
+```
