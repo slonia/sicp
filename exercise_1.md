@@ -22,6 +22,7 @@ Exercise 1
 * [1.20](#120)
 * [1.21](#121)
 * [1.22](#122)
+* [1.23](#123)
 
 ##1.1
 
@@ -662,3 +663,127 @@ Normal order:
 >> (smallest-divisor 19999)
 => 7
 ```
+
+
+##1.22
+
+```
+(defn divides? [a b]
+  (= (rem b a) 0)
+)
+
+(defn find-divisor [n test-divisor]
+  (cond
+    (> (* test-divisor test-divisor) n) n
+    (divides? test-divisor n) test-divisor
+    :else (find-divisor n (inc test-divisor))
+  )
+)
+
+(defn smallest-divisor [n]
+  (find-divisor n 2)
+)
+
+(defn prime? [n]
+  (= n (smallest-divisor n))
+)
+
+
+(defn report-prime [n elapsed-time]
+  (println " * * * ")
+  (println n)
+  (println elapsed-time)
+  n
+)
+
+(defn start-prime-test [n]
+  (let [start (System/nanoTime)]
+  (if (prime? n)
+    (report-prime n (- (System/nanoTime) start)))
+  )
+)
+
+(defn timed-prime-test [n]
+  (start-prime-test n)
+)
+
+
+(defn search-iter [numbers current count]
+  (cond
+    (= count 0) (println numbers)
+    (nil? (timed-prime-test current)) (search-iter numbers (inc current) count)
+    :else (search-iter (conj numbers current) (inc current) (dec count))
+  )
+)
+
+(defn search-for-primes [start n]
+  (search-iter [] start n)
+)
+
+```
+Results
+
+|        |         |         |         |        |
+|--------|---------|---------|---------|--------|
+| Number | 1009    | 1013    | 1019    | avg    |
+| Time1  | 9331    | 7819    | 6061    | 7737   |
+| Number | 10007   | 10009   | 10037   | avg    |
+| Time2  | 17834   | 18543   | 14999   | 17125  |
+| Number | 100003  | 100019  | 100043  | avg    |
+| Time3  | 70890   | 49837   | 47797   | 56174  |
+| Number | 1000003 | 1000033 | 1000037 | avg    |
+| Time4  | 192728  | 146726  | 167618  | 169024 |
+
+```
+sqrt(10) = 3.16
+Time2/Time1 = 2.21
+Time3/Time2 = 3.28
+Time4/Time3 = 3.01
+```
+
+##1.23
+```
+(defn divides? [a b]
+  (= (rem b a) 0)
+)
+
+(defn next [n]
+  (if (= n 2) 3 (+ n 2))
+)
+
+(defn find-divisor [n test-divisor]
+  (cond
+    (> (* test-divisor test-divisor) n) n
+    (divides? test-divisor n) test-divisor
+    :else (find-divisor n (next test-divisor))
+  )
+)
+
+(defn smallest-divisor [n]
+  (find-divisor n 2)
+)
+
+(defn prime? [n]
+  (= n (smallest-divisor n))
+)
+
+
+(defn report-prime [n elapsed-time]
+  (println " * * * ")
+  (println n)
+  (println elapsed-time)
+  n
+)
+
+(defn start-prime-test [n]
+  (let [start (System/nanoTime)]
+  (if (prime? n)
+    (report-prime n (- (System/nanoTime) start)))
+  )
+)
+
+(defn timed-prime-test [n]
+  (start-prime-test n)
+)
+```
+Seems time measurement return random values and we cannot use them for comparison.
